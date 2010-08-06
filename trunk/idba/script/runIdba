@@ -1,0 +1,102 @@
+#! /usr/bin/perl
+
+$kmer = 25;
+$read = undef;
+$prefix = undef;
+$ref = undef;
+$build = 0;
+$assemble = 0;
+$validate = 0;
+$minCount = 2;
+$prefixLength = 3;
+# $step = 1;
+$maxK = 50;
+$minContig = 100;
+$align = 0;
+$mate = 0;
+$cover = 0;
+
+$arg;
+
+$basedir=`dirname $0`;
+chop($basedir);
+
+sub Usage()
+{
+    print "usage: runIdba --read read-file --prefix pre --ref ref-file\n";
+    print "       [--build] [--assemble] [--align] [--mate] [--validate]\n";
+    print "       [--prefixLength p] [--kmer k] [--maxK k2]  \n";
+    print "       [--minCount m] [--minContig l] [--cover c]\n";
+}
+
+if (scalar(@ARGV) == 0)
+{
+    Usage();
+    exit(1);
+}
+
+while ($arg = shift())
+{
+    if ($arg =~ m/^--/)
+{
+        if ($arg eq "--kmer") { $kmer = shift(); }
+        if ($arg eq "--minContig") { $minContig = shift(); }
+        if ($arg eq "--read") { $read = shift(); }
+        if ($arg eq "--prefix") { $prefix = shift(); }
+        if ($arg eq "--ref") { $ref = shift(); }
+        if ($arg eq "--build") { $build = 1; }
+        if ($arg eq "--assemble") { $assemble = 1; }
+        if ($arg eq "--validate") { $validate = 1; }
+        if ($arg eq "--minCount") { $minCount = shift() + 1; }
+        if ($arg eq "--prefixLength") { $prefixLength = shift(); }
+        if ($arg eq "--maxK") { $maxK = shift(); }
+        if ($arg eq "--align") { $align = 1; }
+        if ($arg eq "--mate") { $mate = 1; }
+        if ($arg eq "--help") { Usage(); exit(1); }
+}
+}
+
+if ($build == 0 && $assemble == 0 && $validate == 0 && $align == 0 && $mate == 0)
+{
+    print "please at least specified one task to do.\n";
+    Usage();
+    exit(1);
+}
+
+$table = "$prefix.table-$kmer";
+$contig = "$prefix.contig";
+
+if ($build)
+{
+    if (!$read || !$prefix) { die "please specify read and prefix"; }
+    system "$basedir/../bin/buildKmerTable $read $table --kmer $kmer --trim $trim --minCount $minCount";
+}
+
+if ($assemble)
+{
+    if (!$read || !$prefix) { die "please specify read and prefix"; }
+    system "$basedir/../bin/idba $read $table $contig --kmer $kmer --minCount $minCount --maxK $maxK --minContig $minContig --cover $cover";
+}
+
+if ($align)
+{
+    system "$basedir/../bin/alignReads $read $contig-$maxK  $contig-$maxK.align --kmer $maxK";
+}
+
+if ($mate)
+{
+    system "$basedir/../bin/mergeContigs --kmer $maxK $contig-$maxK $contig-$maxK.align $contig-mate --minContig $minContig";
+    system "$basedir/../bin/rawN50 < $contig-mate";
+}
+
+if ($validate)
+{
+    if (!$prefix || !$ref) { die "please specify prefix and ref"; }
+
+    print "validate single end version\n";
+    system "$basedir/../script/validate $contig $ref 99.9 $minContig";
+    print "\n";
+    print "validate pair end version\n";
+    system "$basedir/../script/validate $contig-mate $ref 99.9 $minContig";
+    print "\n";
+}
