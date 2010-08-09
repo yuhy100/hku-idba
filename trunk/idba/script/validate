@@ -1,6 +1,0 @@
-#! /usr/bin/perl
-
-$basedir=`dirname $0`;
-chop($basedir);
-
-system "$basedir/../ext-tool/exonerate  $ARGV[0] $ARGV[1] --showalignment false --percent $ARGV[2] | $basedir/../bin/calcCover $ARGV[0] $ARGV[1]  --minContig $ARGV[3]"
