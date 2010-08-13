@@ -1,0 +1,21 @@
+#summary All releases to download page
+#labels release,Phase-Deploy,Featured
+
+= Releases = 
+_*All releases for this project*_
+
+== Stable Release ==
+
+_*[http://hku-idba.googlecode.com/files/idba-0.17.tar.gz IDBA 0.17]*_ (*Aug,2010)
+    IDBA tool kit 0.17 for 64-bit Linux. Remove boost requirement for installation this software.
+
+_*[http://hku-idba.googlecode.com/files/idba-0.16.tar.gz IDBA 0.16]*_ (*Jul,2010)
+    IDBA tool kit 0.16 for 64-bit Linux. 
+
+_*[http://hku-idba.googlecode.com/files/idba-0.9.tar.gz IDBA 0.9]*_ (*Jul,2010)
+    IDBA tool kit 0.9 for 64-bit Linux. 
+
+_*[http://hku-idba.googlecode.com/files/idba-0.1.tar.gz IDBA 0.1]*_ (*Jul,2010)
+    IDBA tool kit 0.1 for 64-bit Linux. 
+
+    
