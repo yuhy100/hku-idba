@@ -1,5 +1,33 @@
-#summary One-sentence summary of this page.
+#Summary Support Information
 
 = Support & Online Help =
 
 Project Owner: *[mailto:ypeng@cs.hku.hk Peng Yu]*
+
+Contect Group: *[mailto:hku-idba@googlegroups.com Contect Address]*
+
+Discussion Forum: *[http://groups.google.com/group/hku-idba HKU-IDBA Group]*
+
+= Resources =
+
+== Subversion Access == 
+
+IDBA Subversion repository can be checked out through SVN with the following instruction set:
+
+  `svn checkout http://hku-idba.googlecode.com/svn/trunk/ hku-idba-read-only`
+
+Please refer to http://code.google.com/p/hku-idba/source/checkout get more information.
+
+== Archive Download ==
+
+From [http://code.google.com/p/hku-idba/wiki/Releases Releases] page you could get the version what you want.
+
+Please refer to [http://code.google.com/p/hku-idba/wiki/InstallationGuideAndUserGuide Installation Guide] if you want to execute it.
+
+= Links = 
+
+[http://www.cs.hku.hk/research/profile.jsp?teacher=chin Professor Francis Y.L. Chin]: Superviser's introduction page
+
+[http://www.cs.hku.hk/research/profile.jsp?teacher=smyiu Dr. S.M. Yiu]:Superviser's introduction page
+
+[http://en.wikipedia.org/wiki/Sequence_assembly Sequence Assembly]: Wikipedia page about the related research information
